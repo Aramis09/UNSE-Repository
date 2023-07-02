@@ -1,18 +1,11 @@
-const DropError = require("../utils/classError")
+const { throwError } = require("../utils/classError")
 const catchedAsyncErrors = require("../utils/catchedAsyncErrors")
 const {createNewAdvertisingHelper,getAdversitingHelper} = require("../helpers/advertisingHelper")
 
-const throwError = ()=> {
-  throw new DropError({
-    message:"Error from server, please try again later",
-    status: 500,
-    succes:false,
-    typeError:"Server error"
-  })
-}
+
 const createdNewAdversiting = async (req,res) => {
     const succesProcess = await createNewAdvertisingHelper (req.body)
-    if(!succesProcess )throwError()
+    if(!succesProcess.succes )throwError()
     return res.status(200).send(succesProcess)
   }
 

@@ -1,4 +1,4 @@
-const DropError = require("../../utils/classError")
+const {DropError} = require("../../utils/classError")
 
 const catchedClientError = (req,res,next)=> {
   const { title,description,summary,aside,footer,image } = req.body
