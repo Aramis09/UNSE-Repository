@@ -4,19 +4,27 @@ const {Advertising,Image} = require("../src/db")
 const createNewAdvertisingHelper = async (bodyData)=> {
   const { title,description,summary,aside,footer,image } = bodyData
   const newAdvertising = await Advertising.create({ title, description, summary, aside, footer });
-  await Image.create({ url: image,advertisingId:newAdvertising.dataValues.id });
+  await Image.create({ url: image,setThumbnailImageTo:newAdvertising.dataValues.id });
   return {
     message:"New Adversiting was created",
     status: 200,
     succes:true,
-    typeError:"none"
   }
 }
 const getAdversitingHelper = async ({page})=> {
-  Advertising
+  //!Falta hacer esta ruta (no olvides el comit) y hacer el paginado
+  let pageSize = 4; // cantidad de elementos por página
+  let offset = (page - 1) * pageSize;
+  const givenPage = Advertising.findAll({
+    include:[{model:Image, as:"ThumbnailImage"}],
+    limit: pageSize,
+    offset: offset
+  })
+  return givenPage
 } 
 
 
 module.exports = {
-  createNewAdvertisingHelper
+  createNewAdvertisingHelper,
+  getAdversitingHelper
 }

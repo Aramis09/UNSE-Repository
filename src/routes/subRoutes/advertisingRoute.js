@@ -5,5 +5,7 @@ const advertisingRouter = Router()
 
 
 advertisingRouter.post("/createAdvertising",middlewares.verifyBodyData,createdNewAdversiting)
-advertisingRouter.get ("/getAdversiting",)
+
+//!Falta el middleware
+advertisingRouter.get ("/getAdversiting",getAdversiting)
 module.exports = advertisingRouter

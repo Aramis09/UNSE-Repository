@@ -36,9 +36,11 @@ const { Advertising,Image } = sequelize.models;
 // Aca vendrian las relaciones
 
 
-Advertising.hasMany(Image, { foreignKey: 'advertisingId',as: "FrontPageImage"});
-Image.belongsTo(Advertising, { foreignKey: 'advertisingId',as: "FrontPageImage" });
-
+Advertising.hasMany(Image, { foreignKey: 'setThumbnailImageTo',as: "ThumbnailImage"});
+Image.belongsTo(Advertising, { foreignKey: 'setThumbnailImageTo',as: "ThumbnailImage" });
+   
+Advertising.hasMany(Image, { foreignKey: 'setCoverImageTo',as: "CoverImage"});
+Image.belongsTo(Advertising, { foreignKey: 'setCoverImageTo',as: "CoverImage" });
 
 // Dog.belongsToMany(Temper, { through: 'Dog_Temper'});
 // Temper.belongsToMany(Dog, {through : 'Dog_Temper'});
