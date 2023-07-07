@@ -32,7 +32,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Advertising,Image,Service, ServiceOrientation } = sequelize.models;
+const { Advertising,Image,Service, ServiceOrientation,SubService } = sequelize.models;
 // Aca vendrian las relaciones
 
 
@@ -46,9 +46,13 @@ Image.belongsTo(Advertising, { foreignKey: 'setCoverImageTo',as: "CoverImage" })
 Service.hasMany(Image, { foreignKey: 'setCoverImageToService',as: "CoverImageToService"});
 Image.belongsTo(Service, { foreignKey: 'setCoverImageToService',as: "CoverImageToService" });
 
-Service.belongsToMany(ServiceOrientation, { through: "Service_ServiceOrientation",as: "Oritentation" });
 ServiceOrientation.belongsToMany(Service, { through: "Service_ServiceOrientation",as: "Oritentation" });
+Service.belongsToMany(ServiceOrientation, { through: "Service_ServiceOrientation",as: "Oritentation" });
+
+Service.hasMany(SubService, { foreignKey: "setTheBelongToService",as: "TheBelongToService" })
+SubService.belongsTo(Service, { foreignKey: "setTheBelongToService",as: "TheBelongToService" });
 //!SERVICE RELATIONSHIPS///////////////////////////////////////////////////////
+
 
 
 module.exports = {
