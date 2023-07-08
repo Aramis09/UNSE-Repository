@@ -1,9 +1,9 @@
 
-class DropError {
-  constructor({message, status = 400, succes,typeError}){
-    typeError
-    this.message = message
-    this.status =  status
+class DropError extends Error{
+  constructor({message, status = 400, succes ,typeError}){
+    super(message)
+    this.statusCode = status
+    this.messageDev = message
     this.succes = succes
     this.typeError = typeError
   } 
