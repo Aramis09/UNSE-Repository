@@ -14,7 +14,7 @@ servicesRouter.post(
 
 servicesRouter.get(
   "/getServices",
-  middlewares.verifyBodyData(dataRequired.toGetList,"body"),
+  middlewares.verifyEntryData(dataRequired.toGetList,"body"),
   getServices)
 
 
