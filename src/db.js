@@ -49,8 +49,8 @@ Image.belongsTo(Service, { foreignKey: 'setCoverImageToService',as: "CoverImageT
 ServiceOrientation.belongsToMany(Service, { through: "Service_ServiceOrientation",as: "Oritentation" });
 Service.belongsToMany(ServiceOrientation, { through: "Service_ServiceOrientation",as: "Oritentation" });
 
-Service.hasMany(SubService, { foreignKey: "setTheBelongToService",as: "TheBelongToService" })
-SubService.belongsTo(Service, { foreignKey: "setTheBelongToService",as: "TheBelongToService" });
+Service.hasMany(SubService, { foreignKey: "setTheBelongToService",as: "BelongToTheService" })
+SubService.belongsTo(Service, { foreignKey: "setTheBelongToService",as: "BelongToTheService" });
 //!SERVICE RELATIONSHIPS///////////////////////////////////////////////////////
 
 

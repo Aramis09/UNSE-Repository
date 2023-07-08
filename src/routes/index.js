@@ -1,6 +1,7 @@
 const { Router } = require('express');
-const advertisingRoutes = require("./subRoutes/advertisingRoute")
-const servicesRouter = require("./subRoutes/servicesRouter")
+const advertisingRouter = require("./subRoutes/advertisingRoute")
+const servicesRouter = require("./subRoutes/servicesRouter");
+const subServiceRouter = require('./subRoutes/subServicesRoute');
 
 
 
@@ -9,8 +10,10 @@ const router = Router();
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
-router.use('/advertising',advertisingRoutes );
+router.use('/advertising',advertisingRouter );
 router.use('/services',servicesRouter );
+router.use('/subServices',subServiceRouter );
+
 
 
 

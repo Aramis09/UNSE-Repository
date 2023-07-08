@@ -13,6 +13,10 @@ module.exports = (sequelize) => {
       allowNull:false,
       type:DataTypes.STRING
     },
+    resume:{
+      allowNull:false,
+      type:DataTypes.STRING
+    },
     description:{
       allowNull:false,
       type:DataTypes.STRING
