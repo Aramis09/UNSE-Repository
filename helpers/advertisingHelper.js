@@ -11,6 +11,7 @@ const createNewAdvertisingHelper = async (bodyData)=> {
     succes:true,
   }
 }
+
 const getAdversitingHelper = async ({page})=> {
   //!Falta hacer esta ruta (no olvides el comit) y hacer el paginado
   let pageSize = 4; // cantidad de elementos por página
