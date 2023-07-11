@@ -15,5 +15,6 @@ advertisingRouter.post(
 advertisingRouter.get (
   "/getAdversiting",
   middlewares.verifyEntryData(dataRequired.toGetList,"query"),
-  getAdversiting)
+  getAdversiting
+)
 module.exports = advertisingRouter

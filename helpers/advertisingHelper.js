@@ -13,9 +13,9 @@ const createNewAdvertisingHelper = async (bodyData)=> {
 }
 const getAdversitingHelper = async ({page})=> {
   //!Falta hacer esta ruta (no olvides el comit) y hacer el paginado
-  let pageSize = 4; // cantidad de elementos por página
+  let pageSize = 6; // cantidad de elementos por página
   let offset = (page - 1) * pageSize;
-  const givenPage = Advertising.findAll({
+  const givenPage = await Advertising.findAll({
     include:[{model:Image, as:"ThumbnailImage"}],
     limit: pageSize,
     offset: offset
@@ -28,3 +28,4 @@ module.exports = {
   createNewAdvertisingHelper,
   getAdversitingHelper
 }
+
