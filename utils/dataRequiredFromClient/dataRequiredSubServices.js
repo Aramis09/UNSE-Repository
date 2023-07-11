@@ -3,6 +3,5 @@ const dataRequiredToGetList = ["page"]
 
 module.exports = {
   toCreateNew: dataRequiredToCreateNewSubService,
-  
-
+  toGetList: dataRequiredToGetList
 }

@@ -9,13 +9,15 @@ const servicesRouter = Router()
 servicesRouter.post(
   "/createService",
   middlewares.verifyEntryData(dataRequired.toCreateNew,"body"),
-  createdNewService)
+  createdNewService
+)
 
 
 servicesRouter.get(
   "/getServices",
-  middlewares.verifyBodyData(dataRequired.toGetList,"query"),
-  getServices)
+  middlewares.verifyEntryData(dataRequired.toGetList,"query"),
+  getServices
+)
 
 
 

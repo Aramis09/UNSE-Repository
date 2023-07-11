@@ -1,6 +1,6 @@
 const { SubService,Service } = require("../src/db")
 
-const createSubService = async (bodyData)=> {
+const createSubServiceHelper = async (bodyData)=> {
   const {title,resume,description, idService} = bodyData
   const newSubService = await SubService.create({
     title,
@@ -20,4 +20,19 @@ const createSubService = async (bodyData)=> {
   }
 }
 
-module.exports = createSubService
+const getSubServiceHelper = async (queryData) => {
+  const { page } = queryData 
+  let pageSize = 4; // cantidad de elementos por página
+  let offset = (page - 1) * pageSize;
+  const subServiceList = await SubService.findAll({
+    include:[{model:Service, as:"BelongToTheService"}],
+    limit: pageSize,
+    offset: offset
+  })
+  return subServiceList
+}
+
+module.exports = {
+  createSubServiceHelper,
+  getSubServiceHelper
+}
