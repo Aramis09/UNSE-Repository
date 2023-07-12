@@ -1,6 +1,6 @@
 const { Router } = require("express")
 const middlewares = require("../../../middlewares/exports")
-const { createdNewService,getServices } = require("../../../controllers/servicesController")
+const { createdNewService,getServices,getDetailService } = require("../../../controllers/servicesController")
 const dataRequired = require("../../../utils/dataRequiredFromClient/dataRequiredServices")
 
 const servicesRouter = Router()
@@ -19,6 +19,10 @@ servicesRouter.get(
   getServices
 )
 
-
+servicesRouter.get(
+  "/getServices/:id",
+  middlewares.verifyEntryData(dataRequired.toGetDetail,"params"),
+  getDetailService
+)
 
 module.exports = servicesRouter

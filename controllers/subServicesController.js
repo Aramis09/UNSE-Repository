@@ -1,5 +1,6 @@
-const {createSubServiceHelper,getSubServiceHelper} = require("../helpers/subServiceHelper")
+const {createSubServiceHelper,getSubServiceHelper, getSubServiceDetailHelper} = require("../helpers/subServiceHelper")
 const catchedAsyncErrors = require("../utils/catchedAsyncErrors")
+const { throwError } = require("../utils/classError")
 
 
 const createNewSubService = async(req,res) => {
@@ -9,16 +10,20 @@ const createNewSubService = async(req,res) => {
 
 const getSubService = async(req,res) => {
   const list = await getSubServiceHelper(req.query)
-  res.status(200).send({
-    data:list,
-    status:200,
-    succes:true,
-    message: "it is all ok"
-  })
+  if(!list.succes) throwError()
+  res.status(200).send(list)
+}
+
+const getDetailSubService = async(req,res) => {
+  const {id} = req.params
+  const subServiceFound = await getSubServiceDetailHelper(id)
+  if(!subServiceFound.succes)throwError()
+  return res.status(200).send(subServiceFound)
 }
 
 module.exports = {
   createNewSubService : catchedAsyncErrors(createNewSubService),
-  getSubService: catchedAsyncErrors(getSubService)
+  getSubService: catchedAsyncErrors(getSubService),
+  getDetailSubService:catchedAsyncErrors(getDetailSubService)
 }
 

@@ -29,10 +29,28 @@ const getSubServiceHelper = async (queryData) => {
     limit: pageSize,
     offset: offset
   })
-  return subServiceList
+  return {
+    data:subServiceList,
+    status:200,
+    succes:true,
+    message: "it is all ok"
+  }
+}
+
+const getSubServiceDetailHelper = async (id) => {
+  const subServiceFound = await SubService.findByPk(id,{
+    include:[{model:Service, as:"BelongToTheService"}]
+  })
+  return {
+    data:subServiceFound,
+    status:200,
+    succes:true,
+    message: "it is all ok"
+  }
 }
 
 module.exports = {
   createSubServiceHelper,
-  getSubServiceHelper
+  getSubServiceHelper,
+  getSubServiceDetailHelper
 }

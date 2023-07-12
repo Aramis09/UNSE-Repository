@@ -34,7 +34,12 @@ const getServicesFromDbHelper = async (page)=> {
     offset: offset
 
   })
-  return services 
+  return    {
+    message:"The services list  get was succes",
+    status: 200,
+    succes:true,
+    data:services 
+  }
 }
 
 //todo //////////////////////////Logic//////////////////////////////////
@@ -53,8 +58,27 @@ const associateServiceWithOrientation =async (serviceOrientation,newService )=> 
   return true
 }
 
+const getServiceDetailHelper = async(id)=> {
+  const serviceFound = await Service.findByPk(id,{
+    include:[
+      {
+        model:Image,as:"CoverImageToService"
+      },
+      {
+        model:ServiceOrientation, as:"Oritentation"
+      }
+    ]
+  })
+  return {
+    message:"The services was found correctly",
+    status: 200,
+    succes:true,
+    data:serviceFound 
+  }
+}
 module.exports = {
   createNewServiceHelper,
-  getServicesFromDbHelper
+  getServicesFromDbHelper,
+  getServiceDetailHelper
 }
 
