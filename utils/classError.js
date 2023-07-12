@@ -11,7 +11,6 @@ class DropError extends Error{
 
  const throwError = ()=> {
   throw new DropError({
-    message:"Error from server, please try again later",
     status: 500,
     succes:false,
     typeError:"Server error"

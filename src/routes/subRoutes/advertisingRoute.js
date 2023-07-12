@@ -1,6 +1,6 @@
 const { Router } = require("express")
 const middlewares = require("../../../middlewares/exports")
-const { createdNewAdversiting,getAdversiting } = require("../../../controllers/advertisingController")
+const { createdNewAdversiting,getAdversiting, getDetailAdvertise } = require("../../../controllers/advertisingController")
 const dataRequired = require("../../../utils/dataRequiredFromClient/dataRequiredAdversiting")
 
 const advertisingRouter = Router()
@@ -17,4 +17,11 @@ advertisingRouter.get (
   middlewares.verifyEntryData(dataRequired.toGetList,"query"),
   getAdversiting
 )
+
+advertisingRouter.get(
+  "/getAdversiting/:id",
+  middlewares.verifyEntryData(dataRequired.toGetDetail,"params"),
+  getDetailAdvertise
+)
+
 module.exports = advertisingRouter

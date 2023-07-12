@@ -6,7 +6,7 @@ const subServiceRouter = require('./subRoutes/subServicesRoute');
 
 
 const router = Router();
-
+// http://localhost:3001/advertising/getAdversiting?page=1
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 

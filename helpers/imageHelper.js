@@ -1,7 +1,7 @@
 const { Image } = require("../src/db")
 
 const createAImage = async (imageUrl,asRelationship,buddyId)=> {
-  const processStatus = Image.create({ url: imageUrl,[asRelationship]:buddyId })
+  const processStatus = await Image.create({ url: imageUrl,[asRelationship]:buddyId })
   .then(res => true)
   .catch(err => false)
   return processStatus
