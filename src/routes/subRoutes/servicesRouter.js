@@ -20,8 +20,8 @@ servicesRouter.get(
 )
 
 servicesRouter.get(
-  "/getServices/:id",
-  middlewares.verifyEntryData(dataRequired.toGetDetail,"params"),
+  "/getServices/detail",
+  middlewares.verifyEntryData(dataRequired.toGetDetail,"query"),
   getDetailService
 )
 

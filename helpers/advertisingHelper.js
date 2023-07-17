@@ -1,10 +1,12 @@
-const {Advertising,Image} = require("../src/db")
+const {Advertising,Image,Section} = require("../src/db");
+const { createManySections } = require("./sectionsHelper");
 
 
 const createNewAdvertisingHelper = async (bodyData)=> {
-  const { title,description,summary,aside,footer,image } = bodyData
-  const newAdvertising = await Advertising.create({ title, description, summary, aside, footer });
-  await Image.create({ url: image,setThumbnailImageTo:newAdvertising.dataValues.id });
+  const { title,summary,aside,image,
+  footer,sections } = bodyData
+  const newAdvertising = await Advertising.create({ title, image,summary, aside, footer });
+  await createManySections(sections,"setAdvertisingOwner",newAdvertising.dataValues.id)
   return {
     message:"New Adversiting was created",
     status: 200,
@@ -17,7 +19,7 @@ const getAdversitingHelper = async (page)=> {
   let pageSize = 6; // cantidad de elementos por página
   let offset = (page - 1) * pageSize;
   const givenPage = await Advertising.findAll({
-    include:[{model:Image, as:"ThumbnailImage"}],
+    include:[{model:Section, as:"SectionsViews"}],
     limit: pageSize,
     offset: offset
   })
@@ -32,7 +34,7 @@ const getAdversitingHelper = async (page)=> {
 
 const getDetailAdvertisingHelper = async (AdversitingId) => {
   const advertise = await Advertising.findByPk(AdversitingId, {
-    include: [{model: Image, as:"CoverImage"}]
+    include: [{model: Section, as:"SectionsViews"}]
   })
   return {
     message:"Advertising successfuly fetched",

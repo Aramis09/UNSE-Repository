@@ -1,4 +1,6 @@
-const dataRequiredToCreateNewAdversiting = ["title","description","summary","aside","footer","image"]
+const dataRequiredToCreateNewAdversiting = ["title","summary","image","aside",
+"footer","sections"]
+//"textPartOne","textPartTwo","topImage","middleImage","belowImage"
 const dataRequiredToGetList = ["page"]
 const dataRequiredToGetDetail = ["id"]
 

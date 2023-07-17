@@ -13,10 +13,6 @@ module.exports = (sequelize)=> {
       allowNull:false,
       type:DataTypes.STRING
     },
-    description:{
-      allowNull:false,
-      type:DataTypes.TEXT
-    },
     summary:{
       allowNull:false,
       type:DataTypes.STRING
@@ -29,5 +25,9 @@ module.exports = (sequelize)=> {
       allowNull:false,
       type:DataTypes.STRING
     },
+    image:{
+      allowNull:false,
+      type:DataTypes.STRING
+    }
   })
 }

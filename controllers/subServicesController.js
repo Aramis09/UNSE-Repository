@@ -5,6 +5,7 @@ const { throwError } = require("../utils/classError")
 
 const createNewSubService = async(req,res) => {
   const newSubService = await createSubServiceHelper(req.body)
+  if(!newSubService.succes) throwError()
   res.status(200).send(newSubService)
 }
 

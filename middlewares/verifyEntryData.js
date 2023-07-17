@@ -7,7 +7,7 @@ function verifyEntryData(dataRequired,typeEntry){
     const entryData = req[typeEntry]
     const wasNotSentAllData = dataRequired.some(
       propNeeded => {
-        if(!entryData[propNeeded] && !entryData[propNeeded] !== null &&!entryData[propNeeded] !== false && !entryData[propNeeded] !==0 ){ //!es undefined porque los null y los false pueden ser intencionales y requiridos
+        if(!entryData[propNeeded] && !entryData[propNeeded] == null &&!entryData[propNeeded] == false && entryData[propNeeded] !==0 ){ //!es undefined porque los null y los false pueden ser intencionales y requiridos
           missingData = propNeeded
           return true
         }  

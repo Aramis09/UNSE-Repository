@@ -1,6 +1,6 @@
-const dataRequiredToCreateNewService=["title","description","images","serviceOrientation"]
+const dataRequiredToCreateNewService=["title","description","images","orientation","section"]
 const dataRequiredToGetList = ["page"]
-const dataRequiredToGetDetail = ["id"]
+const dataRequiredToGetDetail = ["id","orientation"]
 
 module.exports = {
   toCreateNew: dataRequiredToCreateNewService,

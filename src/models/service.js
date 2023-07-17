@@ -17,6 +17,10 @@ module.exports = (sequelize)=> {
       allowNull:false,
       type:DataTypes.TEXT
     },
+    orientation:{
+        allowNull:false,
+        type:DataTypes.STRING
+    }
   
   })
 }

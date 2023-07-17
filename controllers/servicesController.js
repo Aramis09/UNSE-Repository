@@ -17,8 +17,8 @@ const getServices = async (req,res) => {
 }
 
 const getDetailService = async (req,res) => {
-  const {id} = req.params
-  const service = await getServiceDetailHelper(id)
+  const {orientation,id} = req.query
+  const service = await getServiceDetailHelper(id,orientation)
   if(!service.succes )throwError()
   return res.status(200).send(service)
 }

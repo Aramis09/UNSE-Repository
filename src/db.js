@@ -32,26 +32,38 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Advertising,Image,Service, ServiceOrientation,SubService } = sequelize.models;
+const { Advertising,Image,Service, ServiceOrientation,SubService,Section,AsideContent } = sequelize.models;
 // Aca vendrian las relaciones
 
+//!ADVERTISING RELATIONSHIPS///////////////////////////////////////////////////////
 
-Advertising.hasMany(Image, { foreignKey: 'setThumbnailImageTo',as: "ThumbnailImage"});
-Image.belongsTo(Advertising, { foreignKey: 'setThumbnailImageTo',as: "ThumbnailImage" });
-   
-Advertising.hasMany(Image, { foreignKey: 'setCoverImageTo',as: "CoverImage"});
-Image.belongsTo(Advertising, { foreignKey: 'setCoverImageTo',as: "CoverImage" });
+Advertising.hasMany(Section, { foreignKey: 'setAdvertisingOwner',as: "SectionsViews"});
+Section.belongsTo(Advertising, { foreignKey: 'setAdvertisingOwner',as: "SectionsViews" });
+
+//!ADVERTISING RELATIONSHIPS///////////////////////////////////////////////////////
+
+
 
 //!SERVICE RELATIONSHIPS///////////////////////////////////////////////////////
-Service.hasMany(Image, { foreignKey: 'setCoverImageToService',as: "CoverImageToService"});
-Image.belongsTo(Service, { foreignKey: 'setCoverImageToService',as: "CoverImageToService" });
+Service.hasMany(Section, { foreignKey: 'setServiceOwners',as: "SectionsViewsService"});
+Section.belongsTo(Service, { foreignKey: 'setServiceOwners',as: "SectionsViewsService" });
 
-ServiceOrientation.belongsToMany(Service, { through: "Service_ServiceOrientation",as: "Oritentation" });
-Service.belongsToMany(ServiceOrientation, { through: "Service_ServiceOrientation",as: "Oritentation" });
+// Service.belongsToMany(ServiceOrientation, { through: "Service_ServiceOrientation",as: "Oritentation" });
+// ServiceOrientation.belongsToMany(Service, { through: "Service_ServiceOrientation",as: "Oritentation" });
 
 Service.hasMany(SubService, { foreignKey: "setTheBelongToService",as: "BelongToTheService" })
 SubService.belongsTo(Service, { foreignKey: "setTheBelongToService",as: "BelongToTheService" });
 //!SERVICE RELATIONSHIPS///////////////////////////////////////////////////////
+
+//!SECTION RELATIONSHIPS///////////////////////////////////////////////////////
+Section.hasMany(AsideContent, { foreignKey: 'setOwner',as: "AsideContent"});
+AsideContent.belongsTo(Section, { foreignKey: 'setOwner',as: "AsideContent " });
+//!SECTION RELATIONSHIPS///////////////////////////////////////////////////////
+
+//!SUBSERVICE  RELATIONSHIPS///////////////////////////////////////////////////////
+SubService.hasMany(Section, { foreignKey: 'setSubServiceOwner',as: "SectionsViewsSubServ"});
+Section.belongsTo(SubService, { foreignKey: 'setSubServiceOwner',as: "SectionsViewsSubServ" });
+//!SUBSERVICE  RELATIONSHIPS///////////////////////////////////////////////////////
 
 
 

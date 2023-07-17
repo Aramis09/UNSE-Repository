@@ -1,16 +1,20 @@
-const { SubService,Service } = require("../src/db")
+const { SubService,Service,Section } = require("../src/db")
+const { createManySections } = require("./sectionsHelper")
 
 const createSubServiceHelper = async (bodyData)=> {
-  const {title,resume,description, idService} = bodyData
+  const {title,resume,description, idService,sections} = bodyData
   const newSubService = await SubService.create({
     title,
     resume,
     description,
     setTheBelongToService:idService
   })
-  const data = await SubService.findOne({
-    where: {id:newSubService.dataValues.id},
-    include:[{model:Service, as:"BelongToTheService"}]
+
+  await createManySections(sections,"setSubServiceOwner",newSubService.dataValues.id) 
+
+  const data = await SubService.findByPk(newSubService.dataValues.id,{
+    include:[{model:Service, as:"BelongToTheService"},
+      {model:Section, as:"SectionsViewsSubServ"}]
   })
   return {
     message:"New SubService was created",
@@ -25,7 +29,8 @@ const getSubServiceHelper = async (queryData) => {
   let pageSize = 4; // cantidad de elementos por página
   let offset = (page - 1) * pageSize;
   const subServiceList = await SubService.findAll({
-    include:[{model:Service, as:"BelongToTheService"}],
+    include:[{model:Service, as:"BelongToTheService"},
+      {model:Section, as:"SectionsViewsSubServ"}],
     limit: pageSize,
     offset: offset
   })
@@ -39,7 +44,9 @@ const getSubServiceHelper = async (queryData) => {
 
 const getSubServiceDetailHelper = async (id) => {
   const subServiceFound = await SubService.findByPk(id,{
-    include:[{model:Service, as:"BelongToTheService"}]
+    include:[{model:Service, as:"BelongToTheService"},
+      {model:Section, as:"SectionsViewsSubServ"}
+  ]
   })
   return {
     data:subServiceFound,

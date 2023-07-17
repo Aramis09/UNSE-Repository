@@ -1,21 +1,21 @@
-const {Service,Image,ServiceOrientation} = require("../src/db")
-const { createManyImages } = require("../helpers/imageHelper")
+const {Service,Image,Section,ServiceOrientation} = require("../src/db")
+// const { createManyImages } = require("../helpers/imageHelper")
 const { checkIfExists, createNewServiceOrientation } = require("./serviceOrientationHelper")
+const { createManySections } = require("./sectionsHelper")
 
 const createNewServiceHelper = async (bodyData)=> {
-  const {title,description,images,serviceOrientation} = bodyData
+  const {title,description,orientation,sections} = bodyData
   const newService = await Service.create({
     title,
-    description
+    description,
+    orientation
   })
-   await createManyImages(images,"setCoverImageToService",newService.dataValues.id)
-   await associateServiceWithOrientation(serviceOrientation,newService)
+  // await createManyImages(images,"setCoverImageToService",newService.dataValues.id)
+  await createManySections(sections,"setServiceOwners",newService.dataValues.id) 
+  // await associateServiceWithOrientation(serviceOrientation,newService)
 
-  const data = await Service.findOne({
-    where:{id:newService.dataValues.id},
-    include:[{model:ServiceOrientation, as: "Oritentation"},
-  {model:Image, as: "CoverImageToService"}]
-
+  const data = await Service.findByPk(newService.dataValues.id,{
+    include:[{model:Section, as: "SectionsViewsService"}]
   })
   return {
     message:"New Service was created",
@@ -28,8 +28,7 @@ const getServicesFromDbHelper = async (page)=> {
   let pageSize = 4; // cantidad de elementos por página
   let offset = (page - 1) * pageSize;
   const services = await Service.findAll({
-    include:[{model:ServiceOrientation, as: "Oritentation"},
-      {model:Image, as: "CoverImageToService"}],
+    include:[{model:Section, as: "SectionsViewsService"}],
     limit: pageSize,
     offset: offset
 
@@ -41,6 +40,30 @@ const getServicesFromDbHelper = async (page)=> {
     data:services 
   }
 }
+
+
+const getServiceDetailHelper = async(id,orientation)=> {
+  let serviceFound = ""
+  const includeArr = [{model:Section, as: "SectionsViewsService"}]
+  if(id){
+    serviceFound = await Service.findByPk(id,{
+      include:includeArr
+    })
+  }else{
+    serviceFound = await Service.findOne({
+      where:{orientation},
+      include:includeArr
+    })
+  }
+  
+  return {
+    message:"The services was found correctly",
+    status: 200,
+    succes:true,
+    data:serviceFound 
+  }
+}
+
 
 //todo //////////////////////////Logic//////////////////////////////////
 const associateServiceWithOrientation =async (serviceOrientation,newService )=> {
@@ -58,24 +81,6 @@ const associateServiceWithOrientation =async (serviceOrientation,newService )=> 
   return true
 }
 
-const getServiceDetailHelper = async(id)=> {
-  const serviceFound = await Service.findByPk(id,{
-    include:[
-      {
-        model:Image,as:"CoverImageToService"
-      },
-      {
-        model:ServiceOrientation, as:"Oritentation"
-      }
-    ]
-  })
-  return {
-    message:"The services was found correctly",
-    status: 200,
-    succes:true,
-    data:serviceFound 
-  }
-}
 module.exports = {
   createNewServiceHelper,
   getServicesFromDbHelper,
