@@ -25,8 +25,8 @@ const createSubServiceHelper = async (bodyData)=> {
 }
 
 const getSubServiceHelper = async (queryData) => {
-  const { page } = queryData 
-  let pageSize = 4; // cantidad de elementos por página
+  const { page, size } = queryData 
+  let pageSize = size || 6; // cantidad de elementos por página
   let offset = (page - 1) * pageSize;
   const subServiceList = await SubService.findAll({
     include:[{model:Service, as:"BelongToTheService"},
