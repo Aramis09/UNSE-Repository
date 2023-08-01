@@ -1,5 +1,5 @@
-const dataRequiredToCreateNewSubService = ["title","resume","description", "idService","sections"]
-const dataRequiredToGetList = ["page"]
+const dataRequiredToCreateNewSubService = ["title","resume","description", "orientation","sections"]
+const dataRequiredToGetList = ["page","orientation"]
 const dataRequiredToGetDetail = ["id"]
 
 
