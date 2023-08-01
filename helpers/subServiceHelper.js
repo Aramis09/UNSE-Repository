@@ -26,12 +26,13 @@ const createSubServiceHelper = async (bodyData)=> {
 }
 
 const getSubServiceHelper = async (queryData) => {
-  const { page,orientation } = queryData 
+  const { page,orientation,size } = queryData 
   const service = await Service.findOne({
     where:{
       orientation
   }})
-  let pageSize = 6; // cantidad de elementos por página
+  let pageSize = size || 6;  // cantidad de elementos por página
+
   let offset = (page - 1) * pageSize;
   const subServiceList = await SubService.findAll({
     where: { setTheBelongToService: service.dataValues.id},
