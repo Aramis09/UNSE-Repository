@@ -1,12 +1,17 @@
 const express = require("express")
+require('dotenv').config();
+const {
+  CLOUD_NAME,API_KEY,API_SECRET
+} = process.env;
 const cloudinary = require('cloudinary').v2;
 const imageManagerRouter = express()
 
 cloudinary.config({
-  cloud_name:"dynnwv7md",
-  api_key:"461588566863238",
-  api_secret:"krdH2NPcRFX_Z6pNWc84xlr1f5o"
+  cloud_name:CLOUD_NAME,
+  api_key:API_KEY,
+  api_secret:API_SECRET
 })
+
 imageManagerRouter.delete("/delete",(req,res)=>{
   const {publicId} = req.query
   cloudinary.uploader.destroy(publicId)

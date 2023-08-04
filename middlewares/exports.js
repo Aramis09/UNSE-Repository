@@ -1,7 +1,6 @@
 
 
 module.exports = {
-  verifyEntryData: require("./verifyEntryData")  
-
-
+  verifyEntryData: require("./verifyEntryData"),
+    
 }

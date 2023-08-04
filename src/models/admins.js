@@ -4,8 +4,9 @@ const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => sequelize.define("Admin",{
   id:{
     primaryKey:true,
+    autoIncrement: true ,
     allowNull:false,
-    type:DataTypes.INTEGER
+    type:DataTypes.INTEGER,
   },
   user:{
     allowNull:false,
@@ -15,8 +16,4 @@ module.exports = (sequelize) => sequelize.define("Admin",{
     allowNull:false,
     type:DataTypes.STRING
   },
-  answer:{
-    allowNull:false,
-    type:DataTypes.STRING
-  }
 })
