@@ -1,4 +1,5 @@
-const express = require("express")
+const express = require("express");
+const middlewares = require("../../../middlewares/exports");
 require('dotenv').config();
 const {
   CLOUD_NAME,API_KEY,API_SECRET
@@ -12,7 +13,8 @@ cloudinary.config({
   api_secret:API_SECRET
 })
 
-imageManagerRouter.delete("/delete",(req,res)=>{
+imageManagerRouter.delete("/delete",middlewares.jwtVerify,
+(req,res)=>{
   const {publicId} = req.query
   cloudinary.uploader.destroy(publicId)
   res.status(200).send("destroy")

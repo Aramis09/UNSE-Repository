@@ -8,6 +8,7 @@ const servicesRouter = Router()
 //!No te olvides los middlewares
 servicesRouter.post(
   "/createService",
+  middlewares.jwtVerify,
   middlewares.verifyEntryData(dataRequired.toCreateNew,"body"),
   createdNewService
 )

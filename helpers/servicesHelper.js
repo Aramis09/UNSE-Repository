@@ -1,4 +1,4 @@
-const {Service,Image,Section,ServiceOrientation} = require("../src/db")
+const {Service,Section,ServiceOrientation} = require("../src/db")
 // const { createManyImages } = require("../helpers/imageHelper")
 const { checkIfExists, createNewServiceOrientation } = require("./serviceOrientationHelper")
 const { createManySections } = require("./sectionsHelper")

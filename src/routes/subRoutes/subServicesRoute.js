@@ -7,6 +7,7 @@ const subServiceRouter = express()
 //!Falta los middleware
 subServiceRouter.post(
   "/createSubService",
+  middlewares.jwtVerify,
   middlewares.verifyEntryData(dataRequired.toCreateNew,"body"),
   createNewSubService
 )

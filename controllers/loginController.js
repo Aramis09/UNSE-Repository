@@ -13,16 +13,36 @@ const loginController = async (req,res)=> {
       user
     }
   })
+  if(!userFound) return res.status(401).send({
+    user: "",
+    validPassword: false,
+    token: "",
+    error:true
+  })
   const validPassword = await bcrypt.compare(password, userFound.password);
-
+  if(!validPassword) return res.status(401).send({
+    user: "",
+    validPassword: false,
+    token: "",
+    error:true
+  })
   const token = jwt.sign({
     name: userFound.name,
     id: userFound.dataValues.id
   }, process.env.TOKEN_SECRET)
+
+  res.cookie("messiEntroAJugar",token,{
+    maxAge:1000*3600*7, //PONEMOS EL TIEMPO DE VIDA DEL TOKEN
+    httpOnly:false,
+    secure:false, //!IMPORTANTE, HAY QUE PASARLO A TRUE
+    sameSite: "lax"
+  })
+
   return res.status(200).send({
     user,
     validPassword,
-    token
+    token,
+    error:false
   })
 }
 

@@ -16,6 +16,8 @@ const createManyImages = async (imagesArray,asRelationship,buddyId)=> {
   return processStatus
 }
 
+
+
 module.exports = {
   createAImage,
   createManyImages

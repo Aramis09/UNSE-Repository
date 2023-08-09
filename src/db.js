@@ -32,7 +32,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Advertising,Image,Service, ServiceOrientation,SubService,Section,AsideContent } = sequelize.models;
+const { Advertising,Image,Service, ServiceOrientation,SubService,Section,AsideContent,Carrousel } = sequelize.models;
 // Aca vendrian las relaciones
 
 //!ADVERTISING RELATIONSHIPS///////////////////////////////////////////////////////
@@ -63,7 +63,15 @@ AsideContent.belongsTo(Section, { foreignKey: 'setOwner',as: "AsideContent " });
 //!SUBSERVICE  RELATIONSHIPS///////////////////////////////////////////////////////
 SubService.hasMany(Section, { foreignKey: 'setSubServiceOwner',as: "SectionsViewsSubServ"});
 Section.belongsTo(SubService, { foreignKey: 'setSubServiceOwner',as: "SectionsViewsSubServ" });
-//!SUBSERVICE  RELATIONSHIPS///////////////////////////////////////////////////////
+//!SUBSERVICE  RELATIONSHIPS///
+
+
+Advertising.hasOne(Carrousel, { foreignKey: 'setAdvertisingOwner',as: "CarrouselAdded"})
+Carrousel.belongsTo(Advertising, { foreignKey: 'setAdvertisingOwner',as: "CarrouselAdded"})
+
+
+Carrousel.hasMany(Image, { foreignKey: 'setCarrouselOwner',as: "CarrouselContent"})
+Image.belongsTo(Carrousel, { foreignKey: 'setCarrouselOwner',as: "CarrouselContent " });
 
 
 

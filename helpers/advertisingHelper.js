@@ -1,4 +1,4 @@
-const {Advertising,Image,Section} = require("../src/db");
+const {Advertising,Section} = require("../src/db");
 const { createManySections } = require("./sectionsHelper");
 
 
@@ -23,7 +23,6 @@ const getAdversitingHelper = async (page)=> {
     limit: pageSize,
     offset: offset
   })
-
  return  {
     message:"Advertising list successfuly fetched",
     status: 200,

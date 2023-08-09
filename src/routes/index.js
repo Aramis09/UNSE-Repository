@@ -6,23 +6,29 @@ const subServiceRouter = require('./subRoutes/subServicesRoute');
 const imageManagerRouter = require("./subRoutes/imagesCloudRouter");
 const encryptController = require("../../controllers/encryptController")
 const loginController = require('../../controllers/loginController');
-const jwtVerify = require("../../middlewares/jwtVerify")
+const jwtVerify = require('../../middlewares/jwtVerify');
+const { keySecretVerify } = require('../../middlewares/keySecretVerify');
+const carrouselRouter = require('./subRoutes/carrouselRoute');
+const verificationToken = require('./subRoutes/verificationToken');
+
 const router = Router();
 
-
+////////////////////////////////////////////////////////////////////////////////////////////////
 
 //!Esta ruta es un peligro
-router.post("/encryption",encryptController) //!Esta ruta debe deshabilitarseantes del deploy!!!! 
+router.post("/encryption",keySecretVerify,encryptController) //!Esta ruta debe deshabilitarseantes del deploy!!!! 
+router.post("/verificationToken",jwtVerify,verificationToken)
 
-router.post("/login",loginController)
+router.post("/login",keySecretVerify,loginController)
 
-router.use('/',jwtVerify) //<--- esta ruta mata todo, hay que hacer el guardado de token y reutilizar en todas las request
-
+router.use('/',keySecretVerify)
 //todo-----------safe zone----------------//
 router.use('/imageManager',imageManagerRouter );
 router.use('/advertising',advertisingRouter );
 router.use('/services',servicesRouter );
 router.use('/subServices',subServiceRouter );
+router.use('/carrousel',carrouselRouter );
+
 
 
 

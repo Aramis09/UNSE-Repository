@@ -7,6 +7,7 @@ const advertisingRouter = Router()
 
 advertisingRouter.post(
   "/createAdvertising",
+  middlewares.jwtVerify,
   middlewares.verifyEntryData(dataRequired.toCreateNew,"body"),
   createdNewAdversiting
 )

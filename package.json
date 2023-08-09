@@ -1,5 +1,5 @@
 {
-  "name": "api",
+  "name": "aramis_api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,7 +7,7 @@
     "start": "nodemon -L",
     "test": "mocha -w ./tests/**/*.spec.js"
   },
-  "author": "Henry",
+  "author": "Aramis Jaime y Gabriel Rouco",
   "license": "ISC",
   "engines": {
     "node": ">=12.18.3",
@@ -27,8 +27,8 @@
   },
   "devDependencies": {
     "bcrypt": "^5.1.0",
-    "jsonwebtoken": "^9.0.1",
     "chai": "^4.2.0",
+    "jsonwebtoken": "^9.0.1",
     "mocha": "^8.2.1",
     "nodemon": "^2.0.6",
     "supertest": "^6.0.1",
