@@ -5,7 +5,15 @@ const { createManySections } = require("./sectionsHelper");
 const createNewAdvertisingHelper = async (bodyData)=> {
   const { title,summary,aside,image,
   footer,sections } = bodyData
-  const newAdvertising = await Advertising.create({ title, image,summary, aside, footer });
+  const newAdvertising = await Advertising.create({ 
+    title, 
+    image,
+    summary, 
+    aside, 
+    footer,
+    date:new Date().toLocaleDateString() 
+  });
+  console.log(new Date().toLocaleDateString());
   await createManySections(sections,"setAdvertisingOwner",newAdvertising.dataValues.id)
   return {
     message:"New Adversiting was created",
@@ -21,7 +29,8 @@ const getAdversitingHelper = async (page)=> {
   const givenPage = await Advertising.findAll({
     include:[{model:Section, as:"SectionsViews"}],
     limit: pageSize,
-    offset: offset
+    offset: offset,
+    order: [['createdAt', 'DESC']]
   })
  return  {
     message:"Advertising list successfuly fetched",

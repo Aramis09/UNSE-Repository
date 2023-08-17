@@ -39,10 +39,12 @@ const getSubServiceHelper = async (queryData) => {
     include:[{model:Service, as:"BelongToTheService"},
       {model:Section, as:"SectionsViewsSubServ"}],
     limit: pageSize,
-    offset: offset
+    offset: offset,
+    order: [['createdAt', 'DESC']]
   })
+
   return {
-    data:subServiceList,
+    data:!subServiceList.length? null : subServiceList,
     status:200,
     succes:true,
     message: "it is all ok"
