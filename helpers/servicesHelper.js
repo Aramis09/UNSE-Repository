@@ -55,7 +55,7 @@ const getServiceDetailHelper = async(id,orientation)=> {
       include:includeArr
     })
   }
-  
+  console.log(serviceFound);
   return {
     message:"The services was found correctly",
     status: 200,
