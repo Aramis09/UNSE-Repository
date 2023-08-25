@@ -5,6 +5,7 @@ const {throwError} = require("../utils/classError")
 
 const createdNewService = async (req,res) => {
   const succesProcess = await createNewServiceHelper(req.body)
+  console.log(req.body,"<---------------------------------------------------");
   if(!succesProcess.succes)throwError()
   return res.status(200).send(succesProcess)
 }

@@ -22,15 +22,15 @@ module.exports = (sequelize) => {
     },
     topImage:{
       allowNull:true,
-      type:DataTypes.STRING
+      type:DataTypes.TEXT
     },
     middleImage:{
       allowNull:true,
-      type:DataTypes.STRING
+      type:DataTypes.TEXT
     },
     belowImage:{
       allowNull:true,
-      type:DataTypes.STRING
+      type:DataTypes.TEXT
     },
   })
 }

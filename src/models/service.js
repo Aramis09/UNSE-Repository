@@ -14,7 +14,7 @@ module.exports = (sequelize)=> {
       type:DataTypes.STRING
     },
     description:{
-      allowNull:false,
+      allowNull:true,
       type:DataTypes.TEXT
     },
     orientation:{

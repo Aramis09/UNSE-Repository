@@ -1,21 +1,21 @@
 const {ServiceOrientation} = require("../src/db")
 
-const checkIfExists = async(titleForSearch)=> {
+const checkIfExistsOrientation = async(orientationName)=> {
   const serviceOrientation= await ServiceOrientation.findAll({
     where:{
-      title:titleForSearch
+      title:orientationName
     }
   })
   if(serviceOrientation.length) return serviceOrientation[0]
   return false
 }
 
-const createNewServiceOrientation = async (titleForSearch)=> {
-  const newServiceOrientation = await ServiceOrientation.create({title:titleForSearch})
+const createNewServiceOrientation = async (orientationName) => {
+  const newServiceOrientation = await ServiceOrientation.create({title:orientationName})
   return newServiceOrientation
 }
 
 module.exports = {
-  checkIfExists,
+  checkIfExistsOrientation,
   createNewServiceOrientation
 }

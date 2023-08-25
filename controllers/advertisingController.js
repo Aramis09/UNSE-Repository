@@ -5,6 +5,7 @@ const {createNewAdvertisingHelper,getAdversitingHelper, getDetailAdvertisingHelp
 
 const createdNewAdversiting = async (req,res) => {
     const succesProcess = await createNewAdvertisingHelper (req.body)
+    console.log(req.body,"<<-----------------");
     if(!succesProcess.succes )throwError()
     return res.status(200).send(succesProcess)
 }

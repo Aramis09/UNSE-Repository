@@ -15,7 +15,7 @@ module.exports = (sequelize) => {
     },
     resume:{
       allowNull:false,
-      type:DataTypes.STRING
+      type:DataTypes.TEXT
     },
     description:{
       allowNull:false,

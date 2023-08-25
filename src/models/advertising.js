@@ -15,19 +15,19 @@ module.exports = (sequelize)=> {
     },
     summary:{
       allowNull:false,
-      type:DataTypes.STRING
+      type:DataTypes.TEXT
     },
     aside:{
-      allowNull:false,
-      type:DataTypes.STRING
+      allowNull:true,
+      type:DataTypes.TEXT
     },
     footer:{
-      allowNull:false,
-      type:DataTypes.STRING
+      allowNull:true,
+      type:DataTypes.TEXT
     },
     image:{
       allowNull:false,
-      type:DataTypes.STRING
+      type:DataTypes.TEXT
     },
     date:{
       allowNull:false,

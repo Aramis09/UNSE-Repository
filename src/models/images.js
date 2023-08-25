@@ -10,7 +10,7 @@ module.exports = (sequelize) => {
     },
     url:{
       allowNull:false,
-      type:DataTypes.STRING
+      type:DataTypes.TEXT
     }
   })
 }
