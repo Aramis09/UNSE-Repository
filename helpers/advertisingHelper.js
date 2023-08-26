@@ -1,4 +1,5 @@
 const {Advertising,Section} = require("../src/db");
+const { deleteCloudImageHelper } = require("./helperCloudImage");
 const { createManySections } = require("./sectionsHelper");
 
 
@@ -52,9 +53,54 @@ const getDetailAdvertisingHelper = async (AdversitingId) => {
   }
 }
 
+const editAdvertisingHelper = async (bodyData) => {
+  const {  id,property,newValue } = bodyData;
+  const advertisingForEdit = await Advertising.findByPk(id)
+  advertisingForEdit[property] = newValue
+  await advertisingForEdit.save()
+  return {
+    message:"Advertising successfuly edited",
+    status: 200,
+    succes:true,
+    data: advertisingForEdit
+  }
+}
+
+const deleteAdvertisingHelper = async (params) => {
+  const {id} = params
+  const advertisingForDelete = await Advertising.findByPk(id,{
+    include:{model:Section, as:"SectionsViews"}
+  }) 
+  await advertisingForDelete.SectionsViews.map(async objSection => {
+   await deleteCloudImageHelper({publicId:objSection.topImage})
+   await deleteCloudImageHelper({publicId:objSection.middleImage})
+   await deleteCloudImageHelper({publicId:objSection.belowImage})
+   if(objSection.id){
+    await Section.destroy({
+      where:{
+        id:objSection.id
+      }
+    })
+  }
+
+  })
+  await Advertising.destroy({
+    where:{
+      id
+    }
+  })
+  return {
+    message:"Advertising successfuly edited",
+    status: 200,
+    succes:true,
+  }
+}
+
 module.exports = {
   createNewAdvertisingHelper,
   getAdversitingHelper,
-  getDetailAdvertisingHelper
+  getDetailAdvertisingHelper,
+  editAdvertisingHelper,
+  deleteAdvertisingHelper
 }
 

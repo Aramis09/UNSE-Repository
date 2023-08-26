@@ -3,9 +3,13 @@ const dataRequiredToCreateNewAdversiting = ["title","summary","image","aside",
 //"textPartOne","textPartTwo","topImage","middleImage","belowImage"
 const dataRequiredToGetList = ["page"]
 const dataRequiredToGetDetail = ["id"]
+const dataRequiredToDelete = ["id"]
 
+const dataRequiredToEdit = ["id","property","newValue"]
 module.exports = {
   toCreateNew: dataRequiredToCreateNewAdversiting,
   toGetList:dataRequiredToGetList,
-  toGetDetail:dataRequiredToGetDetail
+  toGetDetail:dataRequiredToGetDetail,
+  toEdit:dataRequiredToEdit,
+  toDelete:dataRequiredToDelete
 }

@@ -6,10 +6,12 @@ const subServiceRouter = require('./subRoutes/subServicesRoute');
 const imageManagerRouter = require("./subRoutes/imagesCloudRouter");
 const encryptController = require("../../controllers/encryptController")
 const loginController = require('../../controllers/loginController');
+const orientationRouter = require('./subRoutes/orientationRoute.js')
 const jwtVerify = require('../../middlewares/jwtVerify');
 const { keySecretVerify } = require('../../middlewares/keySecretVerify');
 const carrouselRouter = require('./subRoutes/carrouselRoute');
 const verificationToken = require('./subRoutes/verificationToken');
+const sectionRouter = require('./subRoutes/sectionRoute');
 
 const router = Router();
 
@@ -28,6 +30,10 @@ router.use('/advertising',advertisingRouter );
 router.use('/services',servicesRouter );
 router.use('/subServices',subServiceRouter );
 router.use('/carrousel',carrouselRouter );
+router.use('/orientation',orientationRouter );
+router.use('/sections',sectionRouter );
+
+
 
 
 

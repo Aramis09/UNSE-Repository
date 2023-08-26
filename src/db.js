@@ -48,8 +48,8 @@ Section.belongsTo(Advertising, { foreignKey: 'setAdvertisingOwner',as: "Sections
 Service.hasMany(Section, { foreignKey: 'setServiceOwners',as: "SectionsViewsService"});
 Section.belongsTo(Service, { foreignKey: 'setServiceOwners',as: "SectionsViewsService" });
 
-// Service.belongsToMany(ServiceOrientation, { through: "Service_ServiceOrientation",as: "Oritentation" });
-// ServiceOrientation.belongsToMany(Service, { through: "Service_ServiceOrientation",as: "Oritentation" });
+Service.belongsToMany(ServiceOrientation, { through: "Service_ServiceOrientation",as: "Orientation" });
+ServiceOrientation.belongsToMany(Service, { through: "Service_ServiceOrientation",as: "Orientation" });
 
 Service.hasMany(SubService, { foreignKey: "setTheBelongToService",as: "BelongToTheService" })
 SubService.belongsTo(Service, { foreignKey: "setTheBelongToService",as: "BelongToTheService" });

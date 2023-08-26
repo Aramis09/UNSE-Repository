@@ -27,8 +27,21 @@ const createManySections = async (sectionArray,asRelationship,owner)=> {
   .catch(err => false)
   return processStatus
 }
+const editSectionHelper = async (bodyData) => {
+  const { id,property,newValue } = bodyData;
+  const sectionForEdit = await Section.findByPk(id)
+  sectionForEdit[property] = newValue
+  await sectionForEdit.save()
+  return {
+    message:"section successfuly edited",
+    status: 200,
+    succes:true,
+    data: sectionForEdit
+  }
+}
 
 module.exports = {
   createSection,
-  createManySections
+  createManySections,
+  editSectionHelper
 }

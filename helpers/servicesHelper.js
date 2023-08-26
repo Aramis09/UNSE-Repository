@@ -1,21 +1,21 @@
 const {Service,Section,ServiceOrientation} = require("../src/db")
 // const { createManyImages } = require("../helpers/imageHelper")
-const { checkIfExists, createNewServiceOrientation } = require("./serviceOrientationHelper")
+const { checkIfExistsOrientation, createNewServiceOrientation, deleteServiceOrientation } = require("./serviceOrientationHelper")
 const { createManySections } = require("./sectionsHelper")
-
+const {deleteCloudImageHelper} = require("./helperCloudImage")
 const createNewServiceHelper = async (bodyData)=> {
   const {title,description,orientation,sections} = bodyData
+
   const newService = await Service.create({
     title,
     description,
     orientation
   })
-  // await createManyImages(images,"setCoverImageToService",newService.dataValues.id)
   await createManySections(sections,"setServiceOwners",newService.dataValues.id) 
-  // await associateServiceWithOrientation(serviceOrientation,newService)
+  await associateServiceWithOrientation(orientation,newService)
 
   const data = await Service.findByPk(newService.dataValues.id,{
-    include:[{model:Section, as: "SectionsViewsService"}]
+    include:[{model:Section, as: "SectionsViewsService"},{model:ServiceOrientation, as:"Orientation"}]
   })
   return {
     message:"New Service was created",
@@ -67,23 +67,79 @@ const getServiceDetailHelper = async(id,orientation)=> {
 
 //todo //////////////////////////Logic//////////////////////////////////
 const associateServiceWithOrientation =async (serviceOrientation,newService )=> {
-  const orientation = await checkIfExists(serviceOrientation)
+  const orientation = await checkIfExistsOrientation(serviceOrientation)
   if(!orientation) {
     const newServiceOrientation =  await createNewServiceOrientation(serviceOrientation)
-    await newServiceOrientation.addOritentation(newService,{
-      through:{model:"Service_ServiceOrientation", as: "Oritentation"}
+    await newServiceOrientation.addOrientation(newService,{
+      through:{model:"Service_ServiceOrientation", as: "Orientation"}
     })
     return true
   }
-  await orientation.addOritentation(newService,{
-    through:{model:"Service_ServiceOrientation", as: "Oritentation"}
+  await orientation.addOrientation(newService,{ //!Esto no deberia de crearse
+    through:{model:"Service_ServiceOrientation", as: "Orientation"}
   })
   return true
 }
 
+
+const editServiceHelper = async (bodyData) => {
+  const {  id,property,newValue } = bodyData;
+  const serviceForEdit = await Service.findByPk(id)
+  serviceForEdit[property] = newValue
+  await serviceForEdit.save()
+  return {
+    message:"service successfuly edited",
+    status: 200,
+    succes:true,
+    data: serviceForEdit
+  }
+}
+
+const deleteServiceHelper = async (params) => {
+  const {id} = params
+  const serviceForDelete = await Service.findByPk(id,{
+    include:[{model:Section, as:"SectionsViewsService"},{model:ServiceOrientation, as:"Orientation"}]
+  }) 
+  if(!serviceForDelete) return {
+    message:"service dont exist",
+    status: 200,
+    succes:true,
+  }
+  if(serviceForDelete.SectionsViewsService.length){
+    await serviceForDelete.SectionsViewsService.map(async objSection => {
+     await deleteCloudImageHelper({publicId:objSection.topImage})
+     await deleteCloudImageHelper({publicId:objSection.middleImage})
+     await deleteCloudImageHelper({publicId:objSection.belowImage})
+     if(objSection.id){
+      await Section.destroy({
+        where:{
+          id:objSection.id
+        }
+      })
+    }
+    })
+  }
+  if(serviceForDelete.Orientation.length){
+    await deleteServiceOrientation(serviceForDelete.Orientation[0].id)
+  } 
+
+  await Service.destroy({
+    where:{
+      id
+    }
+  })
+  return {
+    message:"service successfuly edited",
+    status: 200,
+    succes:true,
+    
+  }
+}
 module.exports = {
   createNewServiceHelper,
   getServicesFromDbHelper,
-  getServiceDetailHelper
+  getServiceDetailHelper,
+  editServiceHelper,
+  deleteServiceHelper
 }
 

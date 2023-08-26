@@ -1,4 +1,4 @@
-const {createSubServiceHelper,getSubServiceHelper, getSubServiceDetailHelper} = require("../helpers/subServiceHelper")
+const {createSubServiceHelper,getSubServiceHelper, getSubServiceDetailHelper,editSubServiceHelper, deletesubServiceHelper} = require("../helpers/subServiceHelper")
 const catchedAsyncErrors = require("../utils/catchedAsyncErrors")
 const { throwError } = require("../utils/classError")
 
@@ -8,7 +8,11 @@ const createNewSubService = async(req,res) => {
   if(!newSubService.succes) throwError()
   res.status(200).send(newSubService)
 }
-
+const editSubService = async (req,res) => {
+  const succesProcess = await editSubServiceHelper(req.body)
+  if(!succesProcess.succes )throwError()
+  return res.status(200).send(succesProcess)
+}
 const getSubService = async(req,res) => {
   const list = await getSubServiceHelper(req.query)
   if(!list.succes) throwError()
@@ -22,9 +26,17 @@ const getDetailSubService = async(req,res) => {
   return res.status(200).send(subServiceFound)
 }
 
+const deleteSubService = async(req,res) => {
+  const succesProcess = await deletesubServiceHelper(req.params)
+  if(!succesProcess.succes) throwError()
+  res.status(200).send(succesProcess)
+}
+
 module.exports = {
   createNewSubService : catchedAsyncErrors(createNewSubService),
   getSubService: catchedAsyncErrors(getSubService),
-  getDetailSubService:catchedAsyncErrors(getDetailSubService)
+  getDetailSubService:catchedAsyncErrors(getDetailSubService),
+  editSubService:catchedAsyncErrors(editSubService),
+  deleteSubService:catchedAsyncErrors(deleteSubService)
 }
 
