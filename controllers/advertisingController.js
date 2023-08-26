@@ -1,25 +1,43 @@
-const DropError = require("../utils/classError")
+const { throwError } = require("../utils/classError")
 const catchedAsyncErrors = require("../utils/catchedAsyncErrors")
-const {createNewAdvertisingHelper} = require("../helpers/advertisingHelper")
+const {createNewAdvertisingHelper,getAdversitingHelper, getDetailAdvertisingHelper,editAdvertisingHelper,deleteAdvertisingHelper} = require("../helpers/advertisingHelper")
 
 
 const createdNewAdversiting = async (req,res) => {
     const succesProcess = await createNewAdvertisingHelper (req.body)
-    if(!succesProcess )throw new DropError({
-      message:"Error from server, please try again later",
-      status: 500,
-      succes:false,
-      typeError:"Server error"
-    })
+    if(!succesProcess.succes )throwError()
     return res.status(200).send(succesProcess)
-  }
-
-const getAdversiting = async (req,res)=> {
-  const {page } = req.query
-  const adversitingPage = await getAdversitingHelper({page}) 
+}
+const editAdvertising = async (req,res) => {
+  const succesProcess = await editAdvertisingHelper(req.body)
+  if(!succesProcess.succes )throwError()
+  return res.status(200).send(succesProcess)
 }
 
+const getAdversiting = async (req,res)=> {
+  const { page } = req.query
+  const adversitingPage = await getAdversitingHelper(page) 
+  if(!adversitingPage.succes) throwError()
+  return res.status(200).send(adversitingPage)
+}
+
+const getDetailAdvertise = async (req, res) => {
+  const {id} = req.params
+  const advertise = await getDetailAdvertisingHelper(id)
+  if (!advertise.succes) throwError()
+  return res.status(200).send(advertise)
+}
+
+
+const deleteAdvertising = async (req,res) => {
+  const succesProcess = await deleteAdvertisingHelper (req.params)
+  if(!succesProcess.succes )throwError()
+  return res.status(200).send(succesProcess)
+}
 module.exports = {
   createdNewAdversiting: catchedAsyncErrors(createdNewAdversiting),
-  getAdversiting: catchedAsyncErrors(getAdversiting)
+  getAdversiting: catchedAsyncErrors(getAdversiting),
+  getDetailAdvertise: catchedAsyncErrors(getDetailAdvertise),
+  editAdvertising: catchedAsyncErrors(editAdvertising),
+  deleteAdvertising:catchedAsyncErrors(deleteAdvertising)
 }

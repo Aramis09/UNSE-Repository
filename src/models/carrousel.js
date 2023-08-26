@@ -1,14 +1,14 @@
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-  sequelize.define("Image",{
+  sequelize.define("Carrousel",{
     id:{
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey:true,
       autoIncrement: true 
     },
-    url:{
+    location:{
       allowNull:false,
       type:DataTypes.TEXT
     }

@@ -55,3 +55,15 @@ Post.findAll({
 const advertisingWithImages = await Advertising.findAll({
   include: [{ model: Image,as: "otracosa"}]
 });
+
+
+res.cookie("name","value",{
+  maxAge:1000, //1s puedo multiplicar esto por otros numeros
+  httpOnly:true,
+  secure:false, //!IMPORTANTE, HAY QUE PASARLO A TRUE
+  sameSite: "lax"
+})
+
+req.cookies //!para optener cookies
+
+res.clearCookie("name") //! para borrar cookie
