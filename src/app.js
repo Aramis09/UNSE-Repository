@@ -17,7 +17,7 @@ server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 server.use(bodyParser.json({ limit: '50mb' }));
 server.use(cookieParser({ credentials: true }));
 server.use(cors({
-  origin:"https://exquisite-meerkat-d337af.netlify.app/",
+  origin:"https://exquisite-meerkat-d337af.netlify.app",
   credentials:true
 }));
 
