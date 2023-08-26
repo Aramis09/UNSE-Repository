@@ -3,7 +3,7 @@ const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
 const {
-  DB_DATA
+  DB_DATA, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME
 } = process.env;
 
 const sequelize = new Sequelize(DB_DATA, {
@@ -32,16 +32,48 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Advertising,Image } = sequelize.models;
+const { Advertising,Image,Service, ServiceOrientation,SubService,Section,AsideContent,Carrousel } = sequelize.models;
 // Aca vendrian las relaciones
 
+//!ADVERTISING RELATIONSHIPS///////////////////////////////////////////////////////
 
-Advertising.hasMany(Image, { foreignKey: 'advertisingId',as: "FrontPageImage"});
-Image.belongsTo(Advertising, { foreignKey: 'advertisingId',as: "FrontPageImage" });
+Advertising.hasMany(Section, { foreignKey: 'setAdvertisingOwner',as: "SectionsViews"});
+Section.belongsTo(Advertising, { foreignKey: 'setAdvertisingOwner',as: "SectionsViews" });
+
+//!ADVERTISING RELATIONSHIPS///////////////////////////////////////////////////////
 
 
-// Dog.belongsToMany(Temper, { through: 'Dog_Temper'});
-// Temper.belongsToMany(Dog, {through : 'Dog_Temper'});
+
+//!SERVICE RELATIONSHIPS///////////////////////////////////////////////////////
+Service.hasMany(Section, { foreignKey: 'setServiceOwners',as: "SectionsViewsService"});
+Section.belongsTo(Service, { foreignKey: 'setServiceOwners',as: "SectionsViewsService" });
+
+Service.belongsToMany(ServiceOrientation, { through: "Service_ServiceOrientation",as: "Orientation" });
+ServiceOrientation.belongsToMany(Service, { through: "Service_ServiceOrientation",as: "Orientation" });
+
+Service.hasMany(SubService, { foreignKey: "setTheBelongToService",as: "BelongToTheService" })
+SubService.belongsTo(Service, { foreignKey: "setTheBelongToService",as: "BelongToTheService" });
+//!SERVICE RELATIONSHIPS///////////////////////////////////////////////////////
+
+//!SECTION RELATIONSHIPS///////////////////////////////////////////////////////
+Section.hasMany(AsideContent, { foreignKey: 'setOwner',as: "AsideContent"});
+AsideContent.belongsTo(Section, { foreignKey: 'setOwner',as: "AsideContent " });
+//!SECTION RELATIONSHIPS///////////////////////////////////////////////////////
+
+//!SUBSERVICE  RELATIONSHIPS///////////////////////////////////////////////////////
+SubService.hasMany(Section, { foreignKey: 'setSubServiceOwner',as: "SectionsViewsSubServ"});
+Section.belongsTo(SubService, { foreignKey: 'setSubServiceOwner',as: "SectionsViewsSubServ" });
+//!SUBSERVICE  RELATIONSHIPS///
+
+
+Advertising.hasOne(Carrousel, { foreignKey: 'setAdvertisingOwner',as: "CarrouselAdded"})
+Carrousel.belongsTo(Advertising, { foreignKey: 'setAdvertisingOwner',as: "CarrouselAdded"})
+
+
+Carrousel.hasMany(Image, { foreignKey: 'setCarrouselOwner',as: "CarrouselContent"})
+Image.belongsTo(Carrousel, { foreignKey: 'setCarrouselOwner',as: "CarrouselContent " });
+
+
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

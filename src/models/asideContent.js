@@ -1,26 +1,20 @@
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-  sequelize.define("SubService", {
+  sequelize.define("AsideContent",{
     id:{
+      type: DataTypes.INTEGER,
+      allowNull: false,
       primaryKey:true,
-      type:DataTypes.INTEGER,
-      allowNull:false,
-      autoIncrement: true  
-  
+      autoIncrement: true 
     },
     title:{
       allowNull:false,
       type:DataTypes.STRING
     },
-    resume:{
+    text:{
       allowNull:false,
       type:DataTypes.TEXT
-    },
-    description:{
-      allowNull:false,
-      type:DataTypes.TEXT
-    },
-  
+    }
   })
 }

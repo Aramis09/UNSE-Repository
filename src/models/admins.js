@@ -5,18 +5,15 @@ module.exports = (sequelize) => sequelize.define("Admin",{
   id:{
     primaryKey:true,
     allowNull:false,
-    type:DataTypes.INTEGER
+    type:DataTypes.INTEGER,
+    autoIncrement: true,
   },
   user:{
     allowNull:false,
-    type:DataTypes.STRING
+    type:DataTypes.TEXT
   },
   password:{
     allowNull:false,
-    type:DataTypes.STRING
+    type:DataTypes.TEXT
   },
-  answer:{
-    allowNull:false,
-    type:DataTypes.STRING
-  }
 })

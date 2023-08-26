@@ -13,21 +13,25 @@ module.exports = (sequelize)=> {
       allowNull:false,
       type:DataTypes.STRING
     },
-    description:{
-      allowNull:false,
-      type:DataTypes.STRING
-    },
     summary:{
       allowNull:false,
-      type:DataTypes.STRING
+      type:DataTypes.TEXT
     },
     aside:{
-      allowNull:false,
-      type:DataTypes.STRING
+      allowNull:true,
+      type:DataTypes.TEXT
     },
     footer:{
+      allowNull:true,
+      type:DataTypes.TEXT
+    },
+    image:{
+      allowNull:false,
+      type:DataTypes.TEXT
+    },
+    date:{
       allowNull:false,
       type:DataTypes.STRING
-    },
+    }
   })
 }

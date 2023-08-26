@@ -14,9 +14,13 @@ module.exports = (sequelize)=> {
       type:DataTypes.STRING
     },
     description:{
-      allowNull:false,
-      type:DataTypes.STRING
+      allowNull:true,
+      type:DataTypes.TEXT
     },
+    orientation:{
+        allowNull:false,
+        type:DataTypes.STRING
+    }
   
   })
 }
