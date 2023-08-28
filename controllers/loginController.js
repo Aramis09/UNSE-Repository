@@ -35,9 +35,9 @@ const loginController = async (req,res)=> {
     maxAge:1000*3600*7, //PONEMOS EL TIEMPO DE VIDA DEL TOKEN
     httpOnly:false,
     // domain:".vercel.app",
-    // sameSite: 'none',
+    sameSite: 'none',
     secure:false, //!IMPORTANTE, HAY QUE PASARLO A TRUE
-    sameSite: "lax"
+    // sameSite: "lax"
   })
 
   return res.status(200).send({
