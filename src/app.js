@@ -17,19 +17,19 @@ server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 server.use(bodyParser.json({ limit: '50mb' }));
 server.use(cookieParser({ credentials: true }));
 server.use(cors({
-  origin:"https://exquisite-meerkat-d337af.netlify.app",
+  origin:"*",
   credentials:true
 }));
 
 server.use(morgan('dev'));
 
-server.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'https://exquisite-meerkat-d337af.netlify.app'); // update to match the domain you will make the request from
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-  next();
-});
+// server.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', 'https://exquisite-meerkat-d337af.netlify.app'); // update to match the domain you will make the request from
+//   res.header('Access-Control-Allow-Credentials', 'true');
+//   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+//   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+//   next();
+// });
 
 server.use('/', routes);
 
