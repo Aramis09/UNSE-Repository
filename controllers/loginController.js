@@ -37,7 +37,7 @@ const loginController = async (req,res)=> {
     domain:".vercel.app",
     sameSite: 'none',
     secure:true, //!IMPORTANTE, HAY QUE PASARLO A TRUE
-    sameSite: "lax"
+    // sameSite: "lax"
   })
 
   return res.status(200).send({
