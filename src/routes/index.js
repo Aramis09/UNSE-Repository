@@ -4,6 +4,7 @@ const advertisingRouter = require("./subRoutes/advertisingRoute")
 const servicesRouter = require("./subRoutes/servicesRouter");
 const subServiceRouter = require('./subRoutes/subServicesRoute');
 const imageManagerRouter = require("./subRoutes/imagesCloudRouter");
+const aboutRouter = require("./subRoutes/aboutRoute")
 const encryptController = require("../../controllers/encryptController")
 const loginController = require('../../controllers/loginController');
 const orientationRouter = require('./subRoutes/orientationRoute.js')
@@ -32,6 +33,8 @@ router.use('/subServices',subServiceRouter );
 router.use('/carrousel',carrouselRouter );
 router.use('/orientation',orientationRouter );
 router.use('/sections',sectionRouter );
+router.use('/about',aboutRouter );
+
 
 
 
