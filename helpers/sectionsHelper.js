@@ -1,4 +1,5 @@
 const { Section } = require("../src/db")
+const { typesRelationship } = require("../utils/complementsHelpers/sectionHelperComplement")
 
 const createSection = async (sectionData,asRelationship,owner)=> {
   const {title,textPartOne,
@@ -40,8 +41,37 @@ const editSectionHelper = async (bodyData) => {
   }
 }
 
+const createSectionHelper = async (bodyData) => {
+  const { idOwner,typeOwner,dataSection } = bodyData
+    const relationship = typesRelationship[typeOwner]
+    await createSection(dataSection,relationship,idOwner)
+    return {
+      message:"section was created",
+      status: 200,
+      succes:true,
+      data: null
+    }
+}
+const deleteSectionHelper = async (bodyData) => {
+  const { id } = bodyData
+  await Section.destroy({
+    where: {
+      id:id
+    }
+  });
+  return {
+    message:"section deleted",
+    status: 200,
+    succes:true,
+    data: null
+  }
+}
+
 module.exports = {
   createSection,
   createManySections,
-  editSectionHelper
+  editSectionHelper,
+  deleteSectionHelper,
+  createSectionHelper
 }
+
