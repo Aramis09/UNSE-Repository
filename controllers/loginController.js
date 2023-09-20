@@ -36,7 +36,7 @@ const loginController = async (req,res)=> {
     httpOnly:false,
     // domain:".vercel.app",
     // sameSite: 'none',
-    secure:false, //!IMPORTANTE, HAY QUE PASARLO A TRUE
+    secure:true, //!IMPORTANTE, HAY QUE PASARLO A TRUE
     sameSite: "lax"
   })
 
