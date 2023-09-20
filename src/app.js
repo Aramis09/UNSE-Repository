@@ -12,7 +12,7 @@ const server = express();
 
 server.name = 'API';
 
-const origins = ["https://client-unse-project.vercel.app","http://localhost:3000" ]
+const origins = ["https://client-unse-project.vercel.app","https://fisicafceyt.unse.edu.ar" ]
 server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 server.use(bodyParser.json({ limit: '50mb' }));
 server.use(cookieParser({ credentials: true }));
