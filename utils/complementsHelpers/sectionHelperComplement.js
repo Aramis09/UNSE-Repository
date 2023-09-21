@@ -1,7 +1,7 @@
 let typesRelationship = {
   advertising:"setAdvertisingOwner",
   service:"setServiceOwners",
-  subService:"setSubServiceOwner"
+  subServices:"setSubServiceOwner"
 }
 
 module.exports = {

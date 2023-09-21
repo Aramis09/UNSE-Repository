@@ -43,6 +43,7 @@ const editSectionHelper = async (bodyData) => {
 
 const createSectionHelper = async (bodyData) => {
   const { idOwner,typeOwner,dataSection } = bodyData
+  console.log(bodyData);
     const relationship = typesRelationship[typeOwner]
     await createSection(dataSection,relationship,idOwner)
     return {
